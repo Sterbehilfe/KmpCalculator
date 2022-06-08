@@ -1,0 +1,17 @@
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\bin\Debug\net6.0\KmpRechner.exe
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\bin\Debug\net6.0\KmpRechner.deps.json
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\bin\Debug\net6.0\KmpRechner.runtimeconfig.json
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\bin\Debug\net6.0\KmpRechner.dll
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\bin\Debug\net6.0\KmpRechner.pdb
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\KmpRechner.csproj.AssemblyReference.cache
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\KmpRechner.csproj.ResolveComReference.cache
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\KmpRechner.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\KmpRechner.AssemblyInfoInputs.cache
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\KmpRechner.AssemblyInfo.cs
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\KmpRechner.csproj.CoreCompileInputs.cache
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\KmpRechner.dll
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\refint\KmpRechner.dll
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\KmpRechner.pdb
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\KmpRechner.genruntimeconfig.cache
+C:\Users\BenSc\RiderProjects\KmpRechner\KmpRechner\obj\Debug\net6.0\ref\KmpRechner.dll
