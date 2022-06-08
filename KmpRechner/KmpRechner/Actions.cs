@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
@@ -12,47 +11,60 @@ public static class Actions
     [SupportedOSPlatform("windows")]
     public static void ConvertToXlsx()
     {
+        Console.WriteLine("Start");
         string userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        object misValue = System.Reflection.Missing.Value;
-        Excel.Application xlApp = new Excel.Application();
+        Excel.Application xlApp = new();
         Excel.Workbook book = xlApp.Workbooks.Open(@$"{userPath}\Desktop\Posturographie.xlsx");
         Excel.Worksheet sheet = book.Worksheets[2];
+        List<(double X, double Y)> values = new();
 
-        foreach (string file in Directory.GetFiles(@$"{userPath}\Desktop").OrderBy(c => c))
+        string[] files = Directory.GetFiles(@$"{userPath}\Desktop").Where(f => Regex.IsMatch(f, @"_xy\.txt$")).OrderBy(c => c).ToArray();
+        foreach (string file in files)
         {
-            if (Regex.IsMatch(file, @"_xy\.txt$"))
+            string[] content = File.ReadAllLines(file);
+            for (int i = 0; i < content.Length; i++)
             {
-                string[] content = File.ReadAllLines(file);
-                for (int i = 0; i < content.Length; i++)
-                {
-                    string[] nContent = content[i].Split("\t").Skip(6).ToArray();
-                    sheet.Cells[i + 3, 3] = nContent[0].Replace(',', '.');
-                    sheet.Cells[i + 3, 4] = nContent[1].Replace(',', '.');
-                }
+                string[] nContent = content[i].Split('\t').Skip(6).ToArray();
+                double x = double.Parse(nContent[0].Replace(',', '.'));
+                double y = double.Parse(nContent[1].Replace(',', '.'));
+                values.Add(new(x, y));
             }
 
-            string result = sheet.Cells[4, 7].Calculate().ToString();
-            Console.WriteLine(sheet.Cells[4, 7].Text.ToString());
+            double result = 0;
+            for (int i = 1; i < values.Count; i++)
+            {
+                result += Math.Pow(Math.Pow(values[i].X - values[i - 1].X, 2) + Math.Pow(values[i].Y - values[i - 1].Y, 2), 0.5);
+            }
+
             Excel.Worksheet sheet2 = book.Worksheets[1];
+            bool breakNow = false;
             for (int i = 20; i <= 1159; i++)
             {
                 for (int j = 11; j <= 13; j++)
                 {
                     if (string.IsNullOrEmpty(sheet2.Cells[i, j]?.Value?.ToString()))
                     {
-                        sheet2.Cells[j, i] = result;
+                        sheet2.Cells[i, j] = result.ToString(CultureInfo.InvariantCulture);
+                        breakNow = true;
+                        break;
                     }
+                }
+
+                if (breakNow)
+                {
+                    break;
                 }
             }
         }
 
         book.Save();
-        
+
         book.Close();
         xlApp.Quit();
 
         Marshal.ReleaseComObject(sheet);
         Marshal.ReleaseComObject(book);
         Marshal.ReleaseComObject(xlApp);
+        Console.WriteLine("Finished");
     }
 }
