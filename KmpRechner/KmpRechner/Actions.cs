@@ -15,16 +15,16 @@ public static class Actions
         string userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         Excel.Application xlApp = new();
         Excel.Workbook book = xlApp.Workbooks.Open(@$"{userPath}\Desktop\Posturographie.xlsx");
-        Excel.Worksheet sheet = book.Worksheets[2];
-        List<(double X, double Y)> values = new();
+        Excel.Worksheet sheet = book.Worksheets[1];
 
         string[] files = Directory.GetFiles(@$"{userPath}\Desktop").Where(f => Regex.IsMatch(f, @"_xy\.txt$")).OrderBy(c => c).ToArray();
         foreach (string file in files)
         {
             string[] content = File.ReadAllLines(file);
-            for (int i = 0; i < content.Length; i++)
+            List<(double X, double Y)> values = new();
+            foreach (string line in content)
             {
-                string[] nContent = content[i].Split('\t').Skip(6).ToArray();
+                string[] nContent = line.Split('\t').Skip(6).ToArray();
                 double x = double.Parse(nContent[0].Replace(',', '.'));
                 double y = double.Parse(nContent[1].Replace(',', '.'));
                 values.Add(new(x, y));
@@ -36,15 +36,14 @@ public static class Actions
                 result += Math.Pow(Math.Pow(values[i].X - values[i - 1].X, 2) + Math.Pow(values[i].Y - values[i - 1].Y, 2), 0.5);
             }
 
-            Excel.Worksheet sheet2 = book.Worksheets[1];
             bool breakNow = false;
             for (int i = 20; i <= 1159; i++)
             {
                 for (int j = 11; j <= 13; j++)
                 {
-                    if (string.IsNullOrEmpty(sheet2.Cells[i, j]?.Value?.ToString()))
+                    if (string.IsNullOrEmpty(sheet.Cells[i, j]?.Value?.ToString()))
                     {
-                        sheet2.Cells[i, j] = result.ToString(CultureInfo.InvariantCulture);
+                        sheet.Cells[i, j] = result.ToString(CultureInfo.InvariantCulture);
                         breakNow = true;
                         break;
                     }
